@@ -8,6 +8,7 @@ if [ -n "$(git status --porcelain)" ]; then
 else
     zip_filename="build/bot.${git_commit_hash}.zip"
 fi
-zip $zip_filename -r dist/main.js
+zip $zip_filename -j dist/main.js
+zip $zip_filename -j src/talib.node
 
 echo "path to build artifact: $zip_filename"
