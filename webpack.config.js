@@ -22,7 +22,7 @@ module.exports = {
     resolve: {
         modules: ['src', 'node_modules'],
         alias: {
-            talib: path.resolve(__dirname, 'src/talib.node'),
+            './talib': path.resolve(__dirname, 'src/talib.node'),
         },
     },
 };
