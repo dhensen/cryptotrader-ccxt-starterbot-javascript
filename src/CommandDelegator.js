@@ -7,11 +7,13 @@
 'use strict';
 
 const utils = require('./utils');
+const EventEmitter = require('events');
 
 module.exports = class CommandDelegator {
     constructor(bot, dataProxy) {
         this.bot = bot;
         this.dataProxy = dataProxy;
+        this.emitter = new EventEmitter();
     }
 
     handleLine(data) {
@@ -64,6 +66,7 @@ module.exports = class CommandDelegator {
                 .catch(this.bot.stepErrorHandler)
                 .then(() => {
                     this.dataProxy.flushOrders();
+                    this.emitter.emit('stepDone');
                 });
         }
     }
