@@ -53,7 +53,8 @@ module.exports = class Bot {
         return promiseTimeout(
             this.gameSettings.time_per_move,
             new Promise(async (resolve, reject) => {
-                // log('start step ' + round);
+                log('Round: ' + round);
+                log('Timebank left: ' + timebank);
                 let symbols = ['BTC/USDT', 'ETH/BTC', 'ETH/USDT'];
                 return Promise.all(symbols.map(s => this.simpleSMACrossOver(s)))
                     .then(() => resolve())
