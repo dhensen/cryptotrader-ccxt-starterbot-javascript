@@ -50,14 +50,14 @@ module.exports = class Bot {
     }
 
     async step(timebank, round) {
-        return await promiseTimeout(
+        return promiseTimeout(
             this.gameSettings.time_per_move,
             new Promise(async (resolve, reject) => {
                 // log('start step ' + round);
                 let symbols = ['BTC/USDT', 'ETH/BTC', 'ETH/USDT'];
-                resolve(
-                    Promise.all(symbols.map(s => this.simpleSMACrossOver(s))).then(() => resolve)
-                );
+                return Promise.all(symbols.map(s => this.simpleSMACrossOver(s)))
+                    .then(() => resolve())
+                    .catch(reject);
             })
         );
     }
@@ -130,7 +130,7 @@ module.exports = class Bot {
 
     async orderMaximum(symbol, type, price) {
         let market = this.exchange.market(symbol);
-        this.exchange.fetchBalance().then(balance => {
+        return this.exchange.fetchBalance().then(balance => {
             // log(market);
 
             let requiredCurrencybaseOrQuoteKey = type == 'buy' ? 'quote' : 'base';
