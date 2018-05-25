@@ -7,49 +7,57 @@
 'use strict';
 
 const utils = require('./utils');
-const EventEmitter = require('events');
+const sem = require('semaphore')(1);
 
 module.exports = class CommandDelegator {
     constructor(bot, dataProxy) {
         this.bot = bot;
         this.dataProxy = dataProxy;
-        this.emitter = new EventEmitter();
+        this.round = 1; // round counter is one-based
     }
 
     handleLine(data) {
-        // stop if line doesn't contain anything
-        if (data.length === 0) {
-            return;
-        }
-
-        const lines = data.trim().split('\n');
-
-        while (0 < lines.length) {
-            const line = lines.shift().trim();
-            const lineParts = line.split(' ');
-
-            // stop if lineParts doesn't contain anything
-            if (lineParts.length === 0) {
-                return;
-            }
-
-            // get the input command and convert to camel case
-            const command = utils.toCamelCase(lineParts.shift());
-
-            // invoke command if function exists and pass the data along
-            // then return response if exists
-            if (this[command] instanceof Function) {
-                const response = this[command](lineParts);
-
-                if (response && 0 < response.length) {
-                    process.stdout.write(response + '\n');
+        sem.take(
+            function () {
+                // stop if line doesn't contain anything
+                if (data.length === 0) {
+                    return;
                 }
-            } else {
-                process.stderr.write(
-                    'Unable to execute command: ' + command + ', with data: ' + lineParts + '\n'
-                );
-            }
-        }
+
+                const lines = data.trim().split('\n');
+
+                while (0 < lines.length) {
+                    const line = lines.shift().trim();
+                    const lineParts = line.split(' ');
+
+                    // stop if lineParts doesn't contain anything
+                    if (lineParts.length === 0) {
+                        return;
+                    }
+
+                    // get the input command and convert to camel case
+                    const command = utils.toCamelCase(lineParts.shift());
+
+                    // invoke command if function exists and pass the data along
+                    // then return response if exists
+                    if (this[command] instanceof Function) {
+                        const response = this[command](lineParts);
+
+                        if (response instanceof Promise) {
+                            response.then(() => {
+                                sem.leave();
+                            });
+                        } else {
+                            sem.leave();
+                        }
+                    } else {
+                        process.stderr.write(
+                            `Unable to execute command: ${command}, with data: ${lineParts}\n`
+                        );
+                    }
+                }
+            }.bind(this)
+        );
     }
 
     /**
@@ -57,16 +65,14 @@ module.exports = class CommandDelegator {
      * @param {Array} data
      * @returns {String | null}
      */
-    async action(data) {
+    action(data) {
         if (data[0] === 'order') {
-            // this.state.timebank = parseInt(data[1], 10);
             const timebank = parseInt(data[1], 10);
-            await this.bot
-                .step(timebank)
+            return this.bot
+                .step(timebank, this.round++)
                 .catch(this.bot.stepErrorHandler)
                 .then(() => {
                     this.dataProxy.flushOrders();
-                    this.emitter.emit('stepDone');
                 });
         }
     }

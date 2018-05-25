@@ -23,12 +23,6 @@ exchange.setDataProxy(dataProxy);
 function run() {
     this.io = readline.createInterface(process.stdin, process.stdout);
     this.io.on('line', commandDelegator.handleLine.bind(commandDelegator));
-    this.io.on('close', async () => {
-        console.log('input stream closed, program is going to exit');
-        commandDelegator.emitter.on('stepDone', () => {
-            process.exit(0);
-        });
-    });
 }
 
 run();
