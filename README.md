@@ -18,6 +18,16 @@ git clone git@github.com:riddlesio/cryptotrader-ccxt-starterbot-javascript.git
 yarn
 ```
 
+# Usage
+
+1. Sign up at [Riddles.io](https://www.riddles.io)
+2. Create your bot zip-file:
+Out of the box this CCXT integrated startedbot implements a buy and hold (HODL) strategy.
+After cloning the repository and running yarn, you can build a zip-file by running `yarn run build`.
+This will output a zip-file in the `./build` folder that is created the first time you run the build command.
+3. Upload your bot zip-file: Go to the [Crypto Trader](https://playground.riddles.io/competitions/crypto-trader) game and press the Upload Bot button in the upper right corner. Select your bot zip-file and wait for the game to run.
+4. Implement a winning strategy: improve your bot and win!
+
 ## Running tests
 
 To run the Jest test suite run the `test` command.
