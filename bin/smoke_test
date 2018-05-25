@@ -29,6 +29,6 @@ smoke_test_input() {
     fi
 }
 
-smoke_test_input ./test_input/single_action
+# smoke_test_input ./test_input/single_action
 smoke_test_input ./test_input/full_match
 # smoke_test_input ./test_input/add_more_here

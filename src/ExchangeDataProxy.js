@@ -103,7 +103,7 @@ module.exports = class ExchangeDataProxy {
         if (!(marketId in this.candles)) {
             this.candles[marketId] = [];
         }
-        this.candles[marketId].push(candleData);
+        this.candles[marketId].unshift(candleData);
         this.setLastDate(candleData.date);
     }
 
@@ -133,9 +133,9 @@ module.exports = class ExchangeDataProxy {
         if (balance < requiredAmount) {
             throw new InsufficientFunds(
                 `not enough: you want to ${side} ${amount} ${
-                market.base
+                    market.base
                 } requiring ${requiredAmount} ${requiredBalanceCurrency} on ${
-                market.id
+                    market.id
                 } but you have only ${balance} ${requiredBalanceCurrency}`
             );
         }

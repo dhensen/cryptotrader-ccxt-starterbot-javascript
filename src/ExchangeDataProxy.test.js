@@ -27,14 +27,18 @@ describe('updateStacks', () => {
 });
 
 describe('addCandleByString', () => {
-    test('update candles', () => {
+    test('update candles, and candles first added appears last in list', () => {
         const proxy = new ExchangeDataProxy();
         proxy.setCandleFormat('pair,date,high,low,open,close,volume');
         proxy.addCandleByString(
             'BTC_ETH,1516753800,0.090995,0.09040017,0.09060023,0.09069601,39.15071531;USDT_ETH,1516753800,976.99644142,955.99999998,974.87665079,960.00160798,316622.92602686;USDT_BTC,1516753800,10806.92999962,10501,10748.4213653,10575.00000019,1618333.6451304'
         );
+        proxy.addCandleByString(
+            'BTC_ETH,1516755600,0.09096057,0.09038284,0.09069597,0.09094489,67.94092114;USDT_ETH,1516755600,979.97075617,960.92486736,960.92486736,973.25,159234.51597948;USDT_BTC,1516755600,10809.99999996,10547.92374262,10593.92373821,10716.33131045,899934.3787562'
+        );
         expect(proxy.getCandles()).toEqual({
             BTC_ETH: [
+                expect.anything(),
                 {
                     date: 1516753800000,
                     high: 0.090995,
@@ -45,6 +49,7 @@ describe('addCandleByString', () => {
                 },
             ],
             USDT_ETH: [
+                expect.anything(),
                 {
                     date: 1516753800000,
                     high: 976.99644142,
@@ -55,6 +60,7 @@ describe('addCandleByString', () => {
                 },
             ],
             USDT_BTC: [
+                expect.anything(),
                 {
                     date: 1516753800000,
                     high: 10806.92999962,
