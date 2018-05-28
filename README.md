@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/riddlesio/cryptotrader-ccxt-starterbot-javascript.svg?branch=master)](https://travis-ci.org/riddlesio/cryptotrader-ccxt-starterbot-javascript)
 
-Javascript **CCXT** starterbot for the Crypto Trader game on Riddles.io. This starterbot provides a [CCXT](https://github.com/ccxt/ccxt) integration for the popular libary used to trade cryptocurrency on exchanges. With this you can write a bot for the Crypto Trader game using the CCXT API that you are already familiar with or wish to learn in a competitive environment!
+Javascript **CCXT** starterbot for the Crypto Trader game on [Riddles.io](https://www.riddles.io). This starterbot provides a [CCXT](https://github.com/ccxt/ccxt) integration for the popular libary used to trade cryptocurrency on exchanges. With this you can write a bot for the Crypto Trader game using the CCXT API that you are already familiar with or wish to learn in a competitive environment!
 
 ## Prerequisites
 - Unix environment
@@ -20,7 +20,7 @@ yarn
 
 ## Usage
 
-1. Sign up at [Riddles.io](https://www.riddles.io)
+1. Create an account by [signing up at Riddles.io](https://playground.riddles.io/account/sign-up)
 2. Create your bot zip-file:
 Out of the box this CCXT integrated startedbot implements a buy and hold (HODL) strategy.
 After cloning the repository and running yarn, you can build a zip-file by running `yarn run build`.
