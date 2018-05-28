@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/riddlesio/cryptotrader-ccxt-starterbot-javascript.svg?branch=master)](https://travis-ci.org/riddlesio/cryptotrader-ccxt-starterbot-javascript)
 
-Javascript ***CCXT*** starterbot for the Crypto Trader game on Riddles.io
-
-Github repo: https://github.com:riddlesio/cryptotrader-ccxt-starterbot-javascript.git
+Javascript **CCXT** starterbot for the Crypto Trader game on Riddles.io. This starterbot provides a [CCXT](https://github.com/ccxt/ccxt) integration for the popular libary used to trade cryptocurrency on exchanges. With this you can write a bot for the Crypto Trader game using the CCXT API that you are already familiar with or wish to learn in a competitive environment!
 
 ## Prerequisites
 - Unix environment
@@ -20,7 +18,7 @@ git clone git@github.com:riddlesio/cryptotrader-ccxt-starterbot-javascript.git
 yarn
 ```
 
-# Usage
+## Usage
 
 1. Sign up at [Riddles.io](https://www.riddles.io)
 2. Create your bot zip-file:
@@ -53,6 +51,19 @@ Done in 1.01s.
 
 > Note: this does not verify the output of your bot. If you want to do that you will need to run
 your game together with the game engine itself.
+
+## Implementing a strategy
+
+Currently there is a simple HOLD strategy implemented in [src/Bot.js](../blob/master/src/Bot.js).
+The Bot instance has a reference to an `exchange` which is the [riddles exchange](../blob/master/src/riddles.js) that provides the
+CCXT API.
+
+
+```javascript
+log(await this.exchange.fetchBalance());
+```
+
+> Note: `log` is a wrapper for `console.error`, which is recommended to use because printing to stdout is assumed as game engine input which can disqualify your bot if it can not be parsed as game input.
 
 ## Build a zip-file to upload
 
