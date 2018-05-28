@@ -1,5 +1,7 @@
 # Crypto Trader CCXT Starterbot Javascript
 
+[![Build Status](https://travis-ci.org/riddlesio/cryptotrader-ccxt-starterbot-javascript.svg?branch=master)](https://travis-ci.org/riddlesio/cryptotrader-ccxt-starterbot-javascript)
+
 Javascript ***CCXT*** starterbot for the Crypto Trader game on Riddles.io
 
 Github repo: https://github.com:riddlesio/cryptotrader-ccxt-starterbot-javascript.git
