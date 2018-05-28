@@ -121,7 +121,7 @@ module.exports = class ExchangeDataProxy {
             throw new Error('market.id is undefined');
         }
         let candlesForMarket = this.candles[market.id];
-        let tickerClosePrice = candlesForMarket[candlesForMarket.length - 1].close;
+        let tickerClosePrice = candlesForMarket[0].close;
         let priceFactor = side == 'buy' ? tickerClosePrice : 1 / tickerClosePrice;
         let balance = this.getBalance(requiredBalanceCurrency);
         // sell is easy: just check if you have the amount

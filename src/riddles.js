@@ -261,7 +261,7 @@ module.exports = class riddles extends Exchange {
         await this.loadMarkets();
         let market = this.market(symbol);
         let dataSource = this.dataProxy.getCandles()[market['id']];
-        var ticker = dataSource[dataSource.length - 1];
+        var ticker = dataSource[0];
         return this.parseTicker(ticker, market);
     }
 
@@ -272,7 +272,7 @@ module.exports = class riddles extends Exchange {
         for (const marketId in candles) {
             let market = this.marketsById[marketId];
             let dataSource = candles[marketId];
-            tickers.push(this.parseTicker(dataSource[dataSource.length - 1], market));
+            tickers.push(this.parseTicker(dataSource[0], market));
         }
         if (typeof symbols === 'undefined') return tickers;
         return this.filterByArray(tickers, 'symbol', symbols);
