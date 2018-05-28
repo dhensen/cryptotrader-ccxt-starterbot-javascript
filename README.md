@@ -64,3 +64,6 @@ plus node_modules unprocessed.
 yarn run build
 ```
 
+## Contributing
+
+Improvements and fixes are very welcome. Just fork this project, and create a pull request.
